@@ -300,10 +300,27 @@ export function YoutubeProLanding() {
             <CtaButton />
 
             <div className="yp-hero-stage">
-              <ImgSlot
-                label="Ảnh sách nổi bật / đế trưng bày"
-                className="yp-slot--hero-book yp-slot--light"
-              />
+              <div className="yp-hero-book-wrap">
+                <ImgSlot
+                  src="/sites/books-combo/combo-banner.jpg"
+                  label="Ảnh sách nổi bật / đế trưng bày"
+                  className="yp-slot--hero-book"
+                />
+                <span className="yp-butterfly" aria-hidden="true">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    className="yp-butterfly__wing yp-butterfly__wing--l"
+                    src="/sites/books-combo/butterfly.png"
+                    alt=""
+                  />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    className="yp-butterfly__wing yp-butterfly__wing--r"
+                    src="/sites/books-combo/butterfly.png"
+                    alt=""
+                  />
+                </span>
+              </div>
             </div>
           </div>
         </section>
