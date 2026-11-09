@@ -219,6 +219,7 @@
   border-radius: 999px;
   flex-shrink: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .yp-slot--filled {
@@ -370,11 +371,19 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
+.yp-audience-card .yp-slot--audience {
+  width: 88px;
+  height: 88px;
+  aspect-ratio: 1;
+  border-radius: 14px;
+}
+
 .yp-audience-card p {
   margin: 0;
   font-size: 13px;
   font-weight: 600;
   color: #222;
+  line-height: 1.45;
 }
 
 /* Benefits numbered */
@@ -453,6 +462,14 @@
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.yp-gift-card .yp-slot--gift {
+  width: 72px;
+  height: 72px;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .yp-gift-card strong {
@@ -708,6 +725,15 @@
   line-height: 1;
 }
 
+.yp-rating-note {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
 .yp-review-list {
   display: flex;
   flex-direction: column;
@@ -726,6 +752,12 @@
 .yp-review-card h3 {
   margin: 0 0 2px;
   font-size: 14px;
+}
+
+.yp-review-job {
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
 }
 
 .yp-review-card .yp-stars {

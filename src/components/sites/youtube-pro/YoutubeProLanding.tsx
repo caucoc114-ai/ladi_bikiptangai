@@ -157,10 +157,22 @@ const HERO_BENEFITS = [
 ];
 
 const AUDIENCE = [
-  "Muốn nói chuyện vui nhưng cứ cứng miệng, câu nào cũng nhạt",
-  "Thích người ta nhưng não đơ, không biết mở lời thế nào",
-  "Hay bị xếp vào “chỉ là bạn” vì hiền quá, thiếu độ cuốn hút",
-  "Muốn chém gió đỉnh, tán chủ động mà không biết học từ đâu",
+  {
+    text: "Muốn nói chuyện vui nhưng cứ cứng miệng, câu nào cũng nhạt",
+    image: "/sites/books-combo/audience-1.jpg",
+  },
+  {
+    text: "Thích người ta nhưng não đơ, không biết mở lời thế nào",
+    image: "/sites/books-combo/audience-2.jpg",
+  },
+  {
+    text: "Hay bị xếp vào “chỉ là bạn” vì hiền quá, thiếu độ cuốn hút",
+    image: "/sites/books-combo/audience-3.jpg",
+  },
+  {
+    text: "Muốn chém gió đỉnh, tán chủ động mà không biết học từ đâu",
+    image: "/sites/books-combo/audience-4.jpg",
+  },
 ];
 
 const LEARNINGS = [
@@ -195,18 +207,22 @@ const GIFTS = [
   {
     title: "Bí Kíp Hài Hước + Bí Kíp Tán Gái",
     price: "Trọn bộ 2 cuốn — chỉ 199K",
+    image: "/sites/books-combo/gift-1.jpg",
   },
   {
     title: "Miễn phí ship toàn quốc",
     price: "Ship nhanh — nhận hàng mới trả tiền",
+    image: "/sites/books-combo/gift-2.jpg",
   },
   {
     title: "Danh sách mở lời & giữ nhịp",
     price: "Áp dụng ngay sau khi đọc",
+    image: "/sites/books-combo/gift-3.jpg",
   },
   {
     title: "Ưu đãi khung giờ vàng",
     price: "Số suất có hạn — chậm là lỡ",
+    image: "/sites/books-combo/gift-4.jpg",
   },
 ];
 
@@ -229,19 +245,27 @@ const FEEDBACK_IMAGES = [
 const REVIEWS = [
   {
     name: "Anh Minh",
+    job: "Nông dân",
     text: "Sách rất hay và giá trị. Đọc xong biết mở lời thế nào, không còn đứng hình.",
+    image: "/sites/books-combo/avatar-1.jpg",
   },
   {
     name: "Anh Dũng",
+    job: "Công nhân xây dựng",
     text: "Bí kíp hài hước dùng được ngay. Bạn bè bảo nói chuyện vui hơn hẳn.",
+    image: "/sites/books-combo/avatar-2.jpg",
   },
   {
     name: "Tuấn Anh",
+    job: "Nhân viên văn phòng",
     text: "Bộ 2 cuốn 199K quá đáng. Có ích thật, không lý thuyết suông.",
+    image: "/sites/books-combo/avatar-3.jpg",
   },
   {
     name: "Hoàng Long",
+    job: "Công nhân nhà máy",
     text: "Công đức vô lượng. Ai đang cứng miệng nên chốt liền.",
+    image: "/sites/books-combo/avatar-4.jpg",
   },
 ];
 
@@ -299,12 +323,13 @@ export function YoutubeProLanding() {
 
             <div className="yp-audience-list">
               {AUDIENCE.map((item, i) => (
-                <article className="yp-audience-card" key={item}>
+                <article className="yp-audience-card" key={item.text}>
                   <ImgSlot
+                    src={item.image}
                     label={`Ảnh đối tượng ${i + 1}`}
-                    className="yp-slot--square"
+                    className="yp-slot--square yp-slot--audience"
                   />
-                  <p>{item}</p>
+                  <p>{item.text}</p>
                 </article>
               ))}
             </div>
@@ -354,8 +379,9 @@ export function YoutubeProLanding() {
             {GIFTS.map((gift, i) => (
               <article className="yp-gift-card" key={gift.title}>
                 <ImgSlot
+                  src={gift.image}
                   label={`Quà ${i + 1}`}
-                  className="yp-slot--square yp-slot--light"
+                  className="yp-slot--square yp-slot--gift"
                 />
                 <div>
                   <strong>
@@ -424,17 +450,24 @@ export function YoutubeProLanding() {
         <section className="yp-section yp-reviews">
           <div className="yp-stack">
             <div className="yp-rating-head">
-              <strong>5/5</strong>
+              <strong>4,9/5</strong>
               <span className="yp-stars">★★★★★</span>
-              <span>Hàng trăm anh em đã chốt · Đánh giá trung bình</span>
+              <span className="yp-rating-note">Hàng trăm anh em đã chốt</span>
             </div>
             <div className="yp-review-list">
               {REVIEWS.map((review) => (
                 <article className="yp-review-card" key={review.name}>
-                  <ImgSlot label="Ảnh đại diện" className="yp-slot--avatar" />
+                  <ImgSlot
+                    src={review.image}
+                    label={`Ảnh ${review.name}`}
+                    className="yp-slot--avatar"
+                  />
                   <div>
-                    <h3>{review.name}</h3>
-                    <div className="yp-stars">★★★★★ · Hôm nay</div>
+                    <h3>
+                      {review.name}
+                      <span className="yp-review-job"> · {review.job}</span>
+                    </h3>
+                    <div className="yp-stars">★★★★★</div>
                     <p>{review.text}</p>
                   </div>
                 </article>
@@ -447,18 +480,11 @@ export function YoutubeProLanding() {
         <footer className="yp-section yp-footer">
           <div className="yp-footer-cols">
             <div>
-              <h4>Hỗ trợ khách hàng</h4>
-              <p>Chính sách đổi trả & vận chuyển</p>
-              <p>Điều khoản sử dụng</p>
-              <p>Bảo mật thông tin</p>
-              <p>Liên hệ shop</p>
-            </div>
-            <div>
               <h4>Shop Bí Kíp</h4>
               <p>Bí Kíp Hài Hước + Bí Kíp Tán Gái</p>
               <p>Gọi ngay: 0523.085.555</p>
               <p>Zalo: 0523.085.555</p>
-              <p>Trang mạng: bithuattangai</p>
+              <p>Fanpage: bithuattangai</p>
             </div>
             <div className="yp-center">
               <ImgSlot
