@@ -119,10 +119,46 @@ function Countdown() {
 }
 
 function OrderBlock({ id }: { id?: string }) {
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle",
+  );
+  const [message, setMessage] = useState("");
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    trackLead();
-    window.alert("Đã nhận thông tin — shop sẽ liên hệ xác nhận đơn.");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      name: String(data.get("name") ?? "").trim(),
+      phone: String(data.get("phone") ?? "").trim(),
+      address: String(data.get("address") ?? "").trim(),
+    };
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const json = (await res.json()) as { ok?: boolean; error?: string };
+
+      if (!res.ok || !json.ok) {
+        setStatus("error");
+        setMessage(json.error || "Gửi đơn thất bại. Thử lại giúp shop.");
+        return;
+      }
+
+      trackLead();
+      form.reset();
+      setStatus("success");
+      setMessage("Đã nhận đơn — shop sẽ liên hệ xác nhận giao hàng.");
+    } catch {
+      setStatus("error");
+      setMessage("Không kết nối được. Kiểm tra mạng rồi thử lại.");
+    }
   };
 
   return (
@@ -139,22 +175,42 @@ function OrderBlock({ id }: { id?: string }) {
         />
 
         <form className="yp-form" onSubmit={onSubmit}>
-          <h2 className="yp-h2">Chốt bộ 2 cuốn</h2>
+          <h2 className="yp-h2">Chốt bộ 2 cuốn 199K</h2>
           <label>
             Họ và tên
-            <input name="name" placeholder="Họ và tên" required />
+            <input name="name" placeholder="Họ và tên" required disabled={status === "loading"} />
           </label>
           <label>
             Số điện thoại
-            <input name="phone" type="tel" placeholder="Số điện thoại" required />
+            <input
+              name="phone"
+              type="tel"
+              placeholder="Số điện thoại"
+              required
+              disabled={status === "loading"}
+            />
           </label>
           <label>
             Địa chỉ
-            <textarea name="address" placeholder="Địa chỉ nhận hàng" required />
+            <textarea
+              name="address"
+              placeholder="Địa chỉ nhận hàng"
+              required
+              disabled={status === "loading"}
+            />
           </label>
-          <button className="yp-cta" type="submit">
-            Chốt bộ 2 cuốn 199K ngay
+          <button className="yp-cta" type="submit" disabled={status === "loading"}>
+            {status === "loading" ? "Đang gửi..." : "GỬI"}
           </button>
+          {message ? (
+            <p
+              className={`yp-form-status ${
+                status === "success" ? "yp-form-status--ok" : "yp-form-status--err"
+              }`}
+            >
+              {message}
+            </p>
+          ) : null}
           <p className="yp-note">
             Miễn phí ship + COD toàn quốc — nhận hàng kiểm tra rồi mới trả tiền
           </p>

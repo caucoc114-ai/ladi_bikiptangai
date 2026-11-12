@@ -762,6 +762,28 @@
   text-align: center;
 }
 
+.yp-form-status {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.yp-form-status--ok {
+  color: #0a7a32;
+}
+
+.yp-form-status--err {
+  color: #b00020;
+}
+
+.yp-form .yp-cta:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  animation: none;
+}
+
 /* Authors */
 .yp-authors {
   background: #fff;
