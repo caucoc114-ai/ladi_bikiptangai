@@ -720,6 +720,8 @@
   border-radius: 18px;
   background: #fff;
   box-shadow: var(--yp-shadow);
+  scroll-margin-top: 16px;
+  scroll-margin-bottom: 96px;
 }
 
 .yp-form label {

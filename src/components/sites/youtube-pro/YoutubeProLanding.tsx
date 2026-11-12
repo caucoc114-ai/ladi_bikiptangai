@@ -62,7 +62,7 @@ function HScrollSlots({
 }
 
 function CtaButton({
-  href = "#order",
+  href = "#order-form",
   children = "Chốt bộ 2 cuốn 199K ngay",
 }: {
   href?: string;
@@ -174,7 +174,7 @@ function OrderBlock({ id }: { id?: string }) {
           className="yp-slot--wide yp-slot--price"
         />
 
-        <form className="yp-form" onSubmit={onSubmit}>
+        <form className="yp-form" id="order-form" onSubmit={onSubmit}>
           <h2 className="yp-h2">Chốt bộ 2 cuốn 199K</h2>
           <label>
             Họ và tên
