@@ -592,15 +592,6 @@ export function YoutubeProLanding() {
               <p>Zalo: 0523.085.555</p>
               <p>Fanpage: bithuattangai</p>
             </div>
-            <div className="yp-center">
-              <ImgSlot
-                label="Biểu tượng / mã quét"
-                className="yp-slot--logo yp-slot--light"
-              />
-              <p style={{ marginTop: 10, fontWeight: 800 }}>
-                Bộ 2 bí kíp — chỉ 199K / 2 cuốn
-              </p>
-            </div>
           </div>
         </footer>
 
