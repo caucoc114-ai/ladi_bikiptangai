@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro, Pattaya } from "next/font/google";
+import { TrackingScripts } from "@/components/analytics/TrackingScripts";
 import "./globals.css";
 
 const beVietnam = Be_Vietnam_Pro({
@@ -44,6 +45,7 @@ export default function RootLayout({
           margin: 0,
         }}
       >
+        <TrackingScripts />
         {children}
       </body>
     </html>

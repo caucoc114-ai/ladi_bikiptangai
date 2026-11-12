@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { trackLead } from "@/lib/analytics";
 import "./youtube-pro.css";
 
 type ImgSlotProps = {
@@ -29,19 +30,28 @@ function ImgSlot({ label, className = "", src }: ImgSlotProps) {
 function HScrollSlots({
   count,
   labelPrefix,
+  images,
   slotClassName = "yp-slot--square",
 }: {
-  count: number;
+  count?: number;
   labelPrefix: string;
+  images?: string[];
   slotClassName?: string;
 }) {
+  const total = Math.max(count ?? 0, images?.length ?? 0);
+  const items = Array.from({ length: total }, (_, i) => ({
+    src: images?.[i],
+    label: `${labelPrefix} ${i + 1}`,
+  }));
+
   return (
     <div className="yp-hscroll" role="region" aria-label={labelPrefix}>
       <div className="yp-hscroll__track">
-        {Array.from({ length: count }, (_, i) => (
-          <div className="yp-hscroll__item" key={`${labelPrefix}-${i}`}>
+        {items.map((item) => (
+          <div className="yp-hscroll__item" key={item.label}>
             <ImgSlot
-              label={`${labelPrefix} ${i + 1}`}
+              src={item.src}
+              label={item.label}
               className={slotClassName}
             />
           </div>
@@ -111,6 +121,7 @@ function Countdown() {
 function OrderBlock({ id }: { id?: string }) {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    trackLead();
     window.alert("Đã nhận thông tin — shop sẽ liên hệ xác nhận đơn.");
   };
 
@@ -121,7 +132,11 @@ function OrderBlock({ id }: { id?: string }) {
         <p className="yp-price-new">199.000đ</p>
         <p className="yp-h3">Ưu đãi sốc kết thúc sau</p>
         <Countdown />
-        <ImgSlot label="Ảnh sản phẩm / ảnh giá" className="yp-slot--wide" />
+        <ImgSlot
+          src="/sites/books-combo/combo-price.jpg"
+          label="Ảnh sản phẩm / ảnh giá"
+          className="yp-slot--wide yp-slot--price"
+        />
 
         <form className="yp-form" onSubmit={onSubmit}>
           <h2 className="yp-h2">Chốt bộ 2 cuốn</h2>
@@ -179,27 +194,32 @@ const LEARNINGS = [
   {
     num: "01",
     title: "Bí kíp hài hước thực chiến",
-    body: "Công thức câu chuyện vui, timing đúng lúc — nói là cuốn, không còn khí thế “cứng người”.",
+    body: "Công thức câu chuyện vui, nhịp đúng lúc — nói là cuốn, không còn khí thế “cứng người”.",
+    image: "/sites/books-combo/learning-1.jpg",
   },
   {
     num: "02",
     title: "Mở lời tán không bị ngố",
     body: "Kịch bản mở đầu tự nhiên, thoát cảnh “Ơ… chào… rồi im”. Tán đâu cũng có đường đi.",
+    image: "/sites/books-combo/learning-2.jpg",
   },
   {
     num: "03",
     title: "Nghệ thuật chém gió đỉnh cao",
     body: "Giữ nhịp hấp dẫn, đẩy cảm xúc, biến cuộc trò chuyện thành “nghiện” gặp lại.",
+    image: "/sites/books-combo/learning-3.jpg",
   },
   {
     num: "04",
     title: "Thoát cảnh “chỉ là bạn” vì quá nhạt",
     body: "Nhận diện lỗi đang tự hủy sức hút — sửa ngay bằng đúng 2 vũ khí: hài + tán.",
+    image: "/sites/books-combo/learning-4.jpg",
   },
   {
     num: "05",
     title: "Áp dụng liền tay, không lý thuyết suông",
     body: "Đọc hiểu là dùng được tối nay. Không cần học lâu, không cần “đợi đủ tự tin”.",
+    image: "/sites/books-combo/learning-5.jpg",
   },
 ];
 
@@ -379,8 +399,9 @@ export function YoutubeProLanding() {
                   </div>
                 </div>
                 <ImgSlot
+                  src={item.image}
                   label={`Minh họa ${item.num}`}
-                  className="yp-slot--wide yp-slot--light"
+                  className="yp-slot--wide yp-slot--learning"
                 />
               </article>
             ))}
@@ -442,7 +463,14 @@ export function YoutubeProLanding() {
         <section className="yp-section yp-section--tight">
           <div className="yp-stack">
             <h2 className="yp-h2 yp-center">Hình ảnh bộ 2 cuốn</h2>
-            <HScrollSlots count={8} labelPrefix="Ảnh sách" />
+            <HScrollSlots
+              labelPrefix="Ảnh sách"
+              images={[
+                "/sites/books-combo/book-slide-1.jpg",
+                "/sites/books-combo/book-slide-2.jpg",
+                "/sites/books-combo/book-slide-3.jpg",
+              ]}
+            />
           </div>
         </section>
 
@@ -452,16 +480,21 @@ export function YoutubeProLanding() {
           style={{ background: "#f3f3f3" }}
         >
           <div className="yp-stack">
-            <h2 className="yp-h2 yp-center">Đọc thử vài trang</h2>
-            <HScrollSlots count={8} labelPrefix="Trang mẫu" />
+            <h2 className="yp-h2 yp-center">Mục lục sơ lược</h2>
+            <HScrollSlots
+              labelPrefix="Trang mẫu"
+              images={[
+                "/sites/books-combo/preview-1.jpg",
+                "/sites/books-combo/preview-2.jpg",
+                "/sites/books-combo/preview-3.jpg",
+                "/sites/books-combo/preview-4.jpg",
+              ]}
+            />
           </div>
         </section>
 
-        {/* 8. Order #1 */}
+        {/* 8. Order */}
         <OrderBlock id="order" />
-
-        {/* 10. Order #2 */}
-        <OrderBlock />
 
         {/* 11. Reviews */}
         <section className="yp-section yp-reviews">

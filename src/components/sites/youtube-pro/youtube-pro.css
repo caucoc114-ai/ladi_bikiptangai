@@ -222,6 +222,18 @@
   aspect-ratio: 16 / 9;
 }
 
+.yp-slot--price {
+  aspect-ratio: 1;
+  max-width: 100%;
+  border-radius: 14px;
+}
+
+.yp-slot--price.yp-slot--filled img {
+  object-fit: contain;
+  object-position: center;
+  background: #0a0a0a;
+}
+
 .yp-slot--logo {
   aspect-ratio: 3 / 1;
   min-height: 48px;
@@ -527,6 +539,11 @@
   margin: 0;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.9);
+}
+
+.yp-benefit-row .yp-slot--learning {
+  border-radius: 12px;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 /* Gifts */
